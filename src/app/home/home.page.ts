@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,17 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  lat : number;
+  long : Number;
+  constructor(private geolocation:Geolocation) {}
+
+  myMethod(){
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.lat = resp.coords.latitude;
+      this.long = resp.coords.longitude;
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+  }
 
 }
